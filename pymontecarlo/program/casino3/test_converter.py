@@ -25,7 +25,7 @@ from pymontecarlo.options.detector import TrajectoryDetector
 
 # Globals and constants variables.
 
-class TestPenelopeConverter(TestCase):
+class TestConverter(TestCase):
 
     def setUp(self):
         TestCase.setUp(self)

@@ -26,6 +26,7 @@ __license__ = "GPL v3"
 from pymontecarlo.program.converter import Converter as _Converter
 
 from pymontecarlo.options.beam import GaussianBeam, PencilBeam
+from pymontecarlo.options.material import Material
 from pymontecarlo.options.geometry import Substrate, HorizontalLayers
 from pymontecarlo.options.limit import ShowersLimit
 from pymontecarlo.options.detector import TrajectoryDetector, ElectronFractionDetector
@@ -37,6 +38,9 @@ from pymontecarlo.options.model import \
 from pymontecarlo.options.particle import ELECTRON
 
 class Converter(_Converter):
+
+    PARTICLES = [ELECTRON]
+    MATERIALS = [Material]
     BEAMS = [GaussianBeam]
     GEOMETRIES = [Substrate, HorizontalLayers]
     DETECTORS = [TrajectoryDetector, ElectronFractionDetector]
@@ -70,11 +74,6 @@ class Converter(_Converter):
             self._warn("Pencil beam converted to Gaussian beam with 0 m diameter")
 
         if not _Converter._convert_beam(self, options):
-            return False
-
-        if options.beam.particle is not ELECTRON:
-            self._warn("Beam particle must be ELECTRON",
-                       "This options definition was removed.")
             return False
 
         if options.beam.energy_eV > 1e6:
